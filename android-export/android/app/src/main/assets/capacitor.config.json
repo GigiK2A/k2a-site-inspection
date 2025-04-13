@@ -1,0 +1,18 @@
+{
+	"appId": "com.k2a.siteinspection",
+	"appName": "K2A Site Inspection",
+	"webDir": "public",
+	"bundledWebRuntime": false,
+	"server": {
+		"androidScheme": "https"
+	},
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 3000,
+			"launchAutoHide": true,
+			"backgroundColor": "#ffffff",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP"
+		}
+	}
+}

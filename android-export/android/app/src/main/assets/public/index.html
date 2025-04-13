@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2A | Verbali di Sopralluogo</title>
+    <meta name="description" content="Applicazione per la creazione di verbali di sopralluogo per siti di telecomunicazioni">
+    <meta name="theme-color" content="#333333">
+    
+    <!-- Favicon e icone -->
+    <link rel="icon" href="icons/favicon.ico">
+    <link rel="apple-touch-icon" href="icons/k2a-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/k2a-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/k2a-16.png">
+    
+    <!-- Manifest per PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stili -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-logo">
+                <img src="icons/k2a-128.png" alt="K2A Logo" class="logo">
+                <div class="header-text">
+                    <h1>Verbali di Sopralluogo</h1>
+                    <p>App per la creazione rapida di verbali di sopralluogo</p>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>Crea Nuovo Verbale</h2>
+                <p>Inizia un nuovo verbale di sopralluogo compilando il modulo.</p>
+                <button id="newReportBtn" class="btn primary">Nuovo Verbale</button>
+            </div>
+            
+            <div class="card">
+                <h2>Verbali Salvati</h2>
+                <p>Visualizza e gestisci i verbali che hai salvato in precedenza.</p>
+                <button id="savedReportsBtn" class="btn secondary">Visualizza Verbali</button>
+            </div>
+
+            <div id="siteTypeSelection" class="card">
+                <h2>Seleziona Tipologia di Sito</h2>
+                <p>Scegli la tipologia di sito per il nuovo verbale di sopralluogo.</p>
+                <div class="site-type-options">
+                    <button id="rawlandBtn" class="btn site-type-btn">
+                        <span class="site-type-icon">🏞️</span>
+                        <span class="site-type-name">Rawland</span>
+                        <span class="site-type-desc">Sito su terreno aperto</span>
+                    </button>
+                    <button id="rooftopBtn" class="btn site-type-btn">
+                        <span class="site-type-icon">🏢</span>
+                        <span class="site-type-name">Rooftop</span>
+                        <span class="site-type-desc">Sito su copertura edificio</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="reportForm" class="hidden">
+                <h2>Nuovo Verbale di Sopralluogo <span id="siteTypeLabel"></span></h2>
+                <form id="inspectionForm">
+                    <div id="basicInfoSection">
+                        <h3>Informazioni di Base</h3>
+                        <div class="form-group">
+                            <label for="siteName">Nome del Sito:</label>
+                            <input type="text" id="siteName" name="siteName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="siteLocation">Ubicazione:</label>
+                            <input type="text" id="siteLocation" name="siteLocation" placeholder="Indirizzo completo">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inspectionDate">Data Sopralluogo:</label>
+                            <input type="date" id="inspectionDate" name="inspectionDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="technicianName">Nome Stipulante:</label>
+                            <input type="text" id="technicianName" name="technicianName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="interventionType">Tipologia intervento:</label>
+                            <input type="text" id="interventionType" name="interventionType" placeholder="Descrizione dell'intervento">
+                        </div>
+                    </div>
+                    
+                    <div id="checklistStepContainer">
+                        <!-- Steps will be added here dynamically -->
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="prevStepBtn" class="btn secondary">Precedente</button>
+                        <button type="button" id="nextStepBtn" class="btn primary">Successivo</button>
+                        <button type="submit" id="generatePdfBtn" class="btn primary hidden">Genera PDF</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+    
+    <!-- Script per registrare il service worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrato con successo:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Registrazione Service Worker fallita:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
